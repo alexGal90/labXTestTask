@@ -224,3 +224,8 @@ h6 {
 .nav__item:last-child {
   transform: rotate(180deg);
 }
+
+.inactive {
+  opacity: 0.1;
+  cursor: auto;
+}

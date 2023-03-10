@@ -38,12 +38,20 @@
             /></a>
           </div>
           <div class="nav">
-            <i class="nav__item"></i>
-            <i class="nav__item"></i>
+            <i
+              :class="{ inactive: isInactivePrev }"
+              class="nav__item"
+              @click="prev"
+            ></i>
+            <i
+              class="nav__item"
+              @click="next"
+              :class="{ inactive: isInactiveNext }"
+            ></i>
           </div>
         </div>
         <ul class="menu">
-          <li class="menu__item" v-for="item in items">
+          <li class="menu__item" v-for="item in displayedData">
             <a
               target="_blank"
               :href="item.href"
@@ -67,6 +75,8 @@
 
     <script type="module">
       import { createApp } from "vue";
+
+      const DISPLAYED_ITEMS_COUNT = 4;
 
       const data = [
         {
@@ -133,45 +143,78 @@
             },
           ],
         },
-        // {
-        //   name: "Lorem Ipsum",
-        //   addr: null,
-        //   time: null,
-        //   price: "14.00",
-        //   img: "https://vitebsk.biz/source/photos/2020/02/19/dsc-7319014821b8.jpg",
-        //   href: "https://vitebsk.biz/",
-        //   menu: [
-        //     { name: "Lorem Ipsum", price: "3.00" },
-        //     { name: "Lorem Ipsum 2", price: "4.00" },
-        //     {
-        //       name: "Lorem Ipsum 3",
-        //       price: "7.00",
-        //     },
-        //   ],
-        // },
-        // {
-        //   name: "Lorem Ipsum Lorem Ipsum",
-        //   addr: null,
-        //   time: null,
-        //   price: "14.00",
-        //   img: "https://vitebsk.biz/source/photos/2023/03/10/aktsii-mart-23-obschaya-0257e656e8.png",
-        //   href: "https://vitebsk.biz/",
-        //   menu: [
-        //     { name: "Lorem Ipsum", price: "3.00" },
-        //     { name: "Lorem Ipsum 2", price: "4.00" },
-        //     {
-        //       name: "Lorem Ipsum 3",
-        //       price: "7.00",
-        //     },
-        //   ],
-        // },
+        {
+          name: "Lorem Ipsum",
+          addr: null,
+          time: null,
+          price: "14.00",
+          img: "https://vitebsk.biz/source/photos/2020/02/19/dsc-7319014821b8.jpg",
+          href: "https://vitebsk.biz/",
+          menu: [
+            { name: "Lorem Ipsum", price: "3.00" },
+            { name: "Lorem Ipsum 2", price: "4.00" },
+            {
+              name: "Lorem Ipsum 3",
+              price: "7.00",
+            },
+          ],
+        },
+        {
+          name: "Lorem Ipsum Lorem Ipsum",
+          addr: null,
+          time: null,
+          price: "14.00",
+          img: "https://vitebsk.biz/source/photos/2023/03/10/aktsii-mart-23-obschaya-0257e656e8.png",
+          href: "https://vitebsk.biz/",
+          menu: [
+            { name: "Lorem Ipsum", price: "3.00" },
+            { name: "Lorem Ipsum 2", price: "4.00" },
+            {
+              name: "Lorem Ipsum 3",
+              price: "7.00",
+            },
+          ],
+        },
       ];
 
       createApp({
         data() {
           return {
             items: data,
+            firstSlideIndex: 0,
           };
+        },
+        computed: {
+          displayedData: function () {
+            return this.items.filter(
+              (item, ind) =>
+                ind < this.firstSlideIndex + DISPLAYED_ITEMS_COUNT &&
+                ind >= this.firstSlideIndex
+            );
+          },
+          isInactivePrev() {
+            return !this.firstSlideIndex;
+          },
+          isInactiveNext() {
+            return (
+              this.firstSlideIndex + DISPLAYED_ITEMS_COUNT === this.items.length
+            );
+          },
+        },
+        methods: {
+          next() {
+            if (
+              this.firstSlideIndex <
+              this.items.length - DISPLAYED_ITEMS_COUNT
+            ) {
+              this.firstSlideIndex++;
+            }
+          },
+          prev() {
+            if (this.firstSlideIndex > 0) {
+              this.firstSlideIndex--;
+            }
+          },
         },
       }).mount("#app");
     </script>
