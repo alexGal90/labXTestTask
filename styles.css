@@ -113,7 +113,6 @@ h6 {
 
 .menu__item__img {
   display: block;
-  width: 360px;
   height: 150px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -185,6 +184,7 @@ h6 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
 .header__info {
@@ -211,6 +211,10 @@ h6 {
   border-bottom-color: #333;
 }
 
+.nav {
+  white-space: nowrap;
+}
+
 .nav__item {
   width: 21px;
   height: 38px;
@@ -228,4 +232,43 @@ h6 {
 .inactive {
   opacity: 0.1;
   cursor: auto;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    padding: 14px;
+  }
+
+  .header__info {
+    font: 900 30px/30px Roboto;
+  }
+
+  .header__info {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 584px) {
+  .header {
+    padding: 8px;
+  }
+
+  .header__info {
+    font: 900 24px/24px Roboto;
+  }
+
+  .header__info {
+    gap: 24px;
+  }
+
+  .nav__item {
+    width: 12px;
+    height: 12px;
+    padding: 12px;
+  }
+
+  .header__info > a:first-child {
+    line-height: initial;
+    /* border-bottom: 2px solid transparent; */
+  }
 }

@@ -29,10 +29,7 @@
             <a href="https://carte.by/vitebsk/" target="_blank"
               >Бизнес-ланчи в Витебске</a
             >
-            <a
-              href="https://carte.by/vitebsk/"
-              class="slunch-logo"
-              target="_blank"
+            <a href="https://carte.by/vitebsk/" target="_blank"
               ><img
                 src="https://vitebsk.biz/source/front/start/i/lunch/carte.svg"
             /></a>
@@ -51,7 +48,11 @@
           </div>
         </div>
         <ul class="menu">
-          <li class="menu__item" v-for="item in displayedData">
+          <li
+            class="menu__item"
+            v-for="item in displayedData"
+            :style="{ 'flex-basis': 'calc(100% / ' + displayedItemsCount + ')' }"
+          >
             <a
               target="_blank"
               :href="item.href"
@@ -76,7 +77,8 @@
     <script type="module">
       import { createApp } from "vue";
 
-      const DISPLAYED_ITEMS_COUNT = 4;
+      const BASE_ITEM_WIDTH = 360;
+      const MAX_WRAPPER_WIDTH = 1440;
 
       const data = [
         {
@@ -182,13 +184,19 @@
           return {
             items: data,
             firstSlideIndex: 0,
+            displayedItemsCount: Math.round(
+              window.innerWidth < MAX_WRAPPER_WIDTH
+                ? window.innerWidth / BASE_ITEM_WIDTH
+                : MAX_WRAPPER_WIDTH / BASE_ITEM_WIDTH
+            ),
           };
         },
+
         computed: {
           displayedData: function () {
             return this.items.filter(
               (item, ind) =>
-                ind < this.firstSlideIndex + DISPLAYED_ITEMS_COUNT &&
+                ind < this.firstSlideIndex + this.displayedItemsCount &&
                 ind >= this.firstSlideIndex
             );
           },
@@ -197,15 +205,17 @@
           },
           isInactiveNext() {
             return (
-              this.firstSlideIndex + DISPLAYED_ITEMS_COUNT === this.items.length
+              this.firstSlideIndex + this.displayedItemsCount ===
+              this.items.length
             );
           },
         },
+
         methods: {
           next() {
             if (
               this.firstSlideIndex <
-              this.items.length - DISPLAYED_ITEMS_COUNT
+              this.items.length - this.displayedItemsCount
             ) {
               this.firstSlideIndex++;
             }
@@ -215,6 +225,27 @@
               this.firstSlideIndex--;
             }
           },
+          onResize() {
+            this.displayedItemsCount = Math.round(
+              window.innerWidth < MAX_WRAPPER_WIDTH
+                ? window.innerWidth / BASE_ITEM_WIDTH
+                : MAX_WRAPPER_WIDTH / BASE_ITEM_WIDTH
+            );
+
+            if (this.firstSlideIndex !== 0) {
+              this.firstSlideIndex = 0;
+            }
+          },
+        },
+
+        mounted() {
+          this.$nextTick(() => {
+            window.addEventListener("resize", this.onResize);
+          });
+        },
+
+        beforeDestroy() {
+          window.removeEventListener("resize", this.onResize);
         },
       }).mount("#app");
     </script>
