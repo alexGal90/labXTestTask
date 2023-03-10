@@ -5,6 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lab X Test Task! ))</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <script type="importmap">
       {
         "imports": {
@@ -16,25 +23,46 @@
 
   <body>
     <div id="app">
-      <ul class="menu">
-        <li class="menu__item" v-for="item in items">
-          <a
-            :href="item.href"
-            class="menu__item__img"
-            :style="{ 'background-image': 'url(' + item.img + ')' }"
-          >
-            <span class="menu__item__name">{{item.name}}</span>
-            <span class="menu__item__addr">{{item.addr}}</span>
-          </a>
-          <ul class="dishes" v-for="dishItem in item.menu">
-            <li class="dishes__item">
-              <span class="dishes__item__name">{{dishItem.name}}</span>
-              <span class="dishes__item__price">{{dishItem.price}}</span>
-            </li>
-          </ul>
-          <div class="menu__price">{{item.price}}</div>
-        </li>
-      </ul>
+      <div class="wrapper">
+        <div class="header">
+          <div class="header__info">
+            <a href="https://carte.by/vitebsk/" target="_blank"
+              >Бизнес-ланчи в Витебске</a
+            >
+            <a
+              href="https://carte.by/vitebsk/"
+              class="slunch-logo"
+              target="_blank"
+              ><img
+                src="https://vitebsk.biz/source/front/start/i/lunch/carte.svg"
+            /></a>
+          </div>
+          <div class="nav">
+            <i class="nav__item"></i>
+            <i class="nav__item"></i>
+          </div>
+        </div>
+        <ul class="menu">
+          <li class="menu__item" v-for="item in items">
+            <a
+              target="_blank"
+              :href="item.href"
+              class="menu__item__img"
+              :style="{ 'background-image': 'url(' + item.img + ')' }"
+            >
+              <span class="menu__item__name">{{item.name}}</span>
+              <span class="menu__item__addr">{{item.addr}}</span>
+            </a>
+            <ul class="dishes" v-for="dishItem in item.menu">
+              <li class="dishes__item">
+                <span class="dishes__item__name">{{dishItem.name}}</span>
+                <span class="dishes__item__price">{{dishItem.price}}</span>
+              </li>
+            </ul>
+            <div class="menu__price">{{item.price}} р</div>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <script type="module">
@@ -45,13 +73,13 @@
           name: "Город",
           addr: "Витебск, ул. Смоленская, 3/1",
           time: null,
-          price: 6.2,
+          price: "6.20",
           img: "https://carte.by/source/photos/2017/03/22/gorod_p.jpg",
           href: "https://vitebsk.biz/",
           menu: [
-            { name: "Сельдь с картофелем", price: 2.5 },
-            { name: "Затирка с молоком", price: 1.2 },
-            { name: "Блинчики с яблоками с топпингом", price: 2.5 },
+            { name: "Сельдь с картофелем", price: "2.50" },
+            { name: "Затирка с молоком", price: "1.20" },
+            { name: "Блинчики с яблоками с топпингом", price: "2.50" },
           ],
         },
         {
@@ -61,7 +89,7 @@
             from: "12:00",
             to: "16:00",
           },
-          price: 8.95,
+          price: "8.95",
           img: "https://carte.by/source/photos/2020/03/11/c9fbfc8f431eab848379ad1b8b70b571_p.jpg",
           href: "https://vitebsk.biz/",
           menu: [
@@ -77,7 +105,7 @@
             from: "12:00",
             to: "16:00",
           },
-          price: 14.5,
+          price: "14.50",
           img: "https://carte.by/source/photos/2015/11/30/liamus_p.jpg",
           href: "https://vitebsk.biz/",
           menu: [
@@ -93,50 +121,50 @@
           name: "Матрёшки",
           addr: null,
           time: null,
-          price: 14,
+          price: "14.00",
           img: "https://carte.by/source/photos/2022/09/20/943f2b0aa171125a8fa14703ebe05ac9_p.jpg",
           href: "https://vitebsk.biz/",
           menu: [
-            { name: "Салат «Олимп»", price: 3 },
-            { name: "Суп дня", price: 4 },
+            { name: "Салат «Олимп»", price: "3.00" },
+            { name: "Суп дня", price: "4.00" },
             {
               name: "Поджарка из цыплёнка с грибами и гречневой кашей",
-              price: 7,
+              price: "7.00",
             },
           ],
         },
-        {
-          name: "Lorem Ipsum",
-          addr: null,
-          time: null,
-          price: 14,
-          img: "https://vitebsk.biz/source/photos/2020/02/19/dsc-7319014821b8.jpg",
-          href: "https://vitebsk.biz/",
-          menu: [
-            { name: "Lorem Ipsum", price: 3 },
-            { name: "Lorem Ipsum 2", price: 4 },
-            {
-              name: "Lorem Ipsum 3",
-              price: 7,
-            },
-          ],
-        },
-        {
-          name: "Lorem Ipsum Lorem Ipsum",
-          addr: null,
-          time: null,
-          price: 14,
-          img: "https://vitebsk.biz/source/photos/2023/03/10/aktsii-mart-23-obschaya-0257e656e8.png",
-          href: "https://vitebsk.biz/",
-          menu: [
-            { name: "Lorem Ipsum", price: 3 },
-            { name: "Lorem Ipsum 2", price: 4 },
-            {
-              name: "Lorem Ipsum 3",
-              price: 7,
-            },
-          ],
-        },
+        // {
+        //   name: "Lorem Ipsum",
+        //   addr: null,
+        //   time: null,
+        //   price: "14.00",
+        //   img: "https://vitebsk.biz/source/photos/2020/02/19/dsc-7319014821b8.jpg",
+        //   href: "https://vitebsk.biz/",
+        //   menu: [
+        //     { name: "Lorem Ipsum", price: "3.00" },
+        //     { name: "Lorem Ipsum 2", price: "4.00" },
+        //     {
+        //       name: "Lorem Ipsum 3",
+        //       price: "7.00",
+        //     },
+        //   ],
+        // },
+        // {
+        //   name: "Lorem Ipsum Lorem Ipsum",
+        //   addr: null,
+        //   time: null,
+        //   price: "14.00",
+        //   img: "https://vitebsk.biz/source/photos/2023/03/10/aktsii-mart-23-obschaya-0257e656e8.png",
+        //   href: "https://vitebsk.biz/",
+        //   menu: [
+        //     { name: "Lorem Ipsum", price: "3.00" },
+        //     { name: "Lorem Ipsum 2", price: "4.00" },
+        //     {
+        //       name: "Lorem Ipsum 3",
+        //       price: "7.00",
+        //     },
+        //   ],
+        // },
       ];
 
       createApp({
